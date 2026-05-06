@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-dep
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fastapi
+  template:
+    metadata:
+      labels:
+        app: fastapi
+    spec:
+      containers:
+      - name: fastapi-con
+        image: 084550838259.dkr.ecr.ap-northeast-2.amazonaws.com/fastapi
+        ports:
+        - containerPort: 8000
