@@ -15,6 +15,6 @@ spec:
       containers:
       - name: svelte-con
         # Nginx 설정이 포함된 Svelte 이미지
-        image: 084550838259.dkr.ecr.ap-northeast-2.amazonaws.com/svelte
+        image: 084550838259.dkr.ecr.ap-northeast-2.amazonaws.com/svelte:1
         ports:
         - containerPort: 80
