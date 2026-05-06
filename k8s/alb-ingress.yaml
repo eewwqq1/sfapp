@@ -1,0 +1,25 @@
+# deploy/alb-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fullstack-alb
+  annotations:
+    # ALB를 외부 인터넷에 노출
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    # 파드의 IP로 직접 트래픽을 전달하여 성능 최적화
+    alb.ingress.kubernetes.io/target-type: ip
+    # 헬스 체크 경로 지정 (Nginx가 / 경로에서 200 OK를 반환해야 함)
+    alb.ingress.kubernetes.io/healthcheck-path: /
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          # 모든 경로(/)로 들어오는 트래픽을 svelte-svc로 전달
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svelte-svc
+                port:
+                  number: 80
